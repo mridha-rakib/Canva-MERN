@@ -6,6 +6,10 @@ import { FaShapes, FaCloudUploadAlt } from "react-icons/fa";
 import { TfiText } from "react-icons/tfi";
 import { RxTransparencyGrid } from "react-icons/rx";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import TemplateDesign from "../components/main/TemplateDesign";
+import MyImages from "../components/MyImages";
+import Project from "../components/Project";
+import Image from "../components/Image";
 
 const Main = () => {
   const [state, setState] = useState("");
@@ -14,14 +18,16 @@ const Main = () => {
     name: "",
   });
 
-  const setElements = (type, name) => {
-    setState(type);
+  const setElements = (name, type) => {
+    console.log("Type: ", type);
+    console.log("name: ", name);
+    setState(name);
     setShow({
       state: false,
       name,
     });
   };
-
+  console.log(state);
   return (
     <div className="min-w-screen h-screen bg-black">
       <Header />
@@ -53,7 +59,7 @@ const Main = () => {
             onClick={() => setElements("image", "uploadImage")}
             className={`${
               show.name === "image" ? "bg-[#252627]" : ""
-            }w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
+            } w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
           >
             <span>
               <FaCloudUploadAlt />
@@ -64,7 +70,7 @@ const Main = () => {
             onClick={() => setElements("text", "text")}
             className={`${
               show.name === "text" ? "bg-[#252627]" : ""
-            }w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
+            } w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
           >
             <span>
               <TfiText />
@@ -75,7 +81,7 @@ const Main = () => {
             onClick={() => setElements("project", "projects")}
             className={`${
               show.name === "project" ? "bg-[#252627]" : ""
-            }w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
+            } w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
           >
             <span>
               <BsFolder />
@@ -86,7 +92,7 @@ const Main = () => {
             onClick={() => setElements("initImage", "images")}
             className={`${
               show.name === "initImage" ? "bg-[#252627]" : ""
-            }w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
+            } w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
           >
             <span>
               <BsFillImageFill />
@@ -97,7 +103,7 @@ const Main = () => {
             onClick={() => setElements("background", "background")}
             className={`${
               show.name === "background" ? "bg-[#252627]" : ""
-            }w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
+            } w-full h-[80px] cursor-pointer flex justify-center flex-col items-center gap-1 hover:text-gray-100`}
           >
             <span>
               <RxTransparencyGrid />
@@ -117,7 +123,68 @@ const Main = () => {
             >
               <MdKeyboardArrowLeft />
             </div>
-            <div className="bg-green-500">Rakib</div>
+            {state === "design" && (
+              <div>
+                <div>
+                  <TemplateDesign />
+                </div>
+              </div>
+            )}
+            {state === "shape" && (
+              <div className="grid grid-cols-3 gap-3">
+                <div className="h-[90px] bg-[#3c3c3d] cursor-pointer"></div>
+                <div className="h-[90px] bg-[#3c3c3d] cursor-pointer rounded-full"></div>
+                <div
+                  style={{ clipPath: "polygon(50% 0, 100% 100%, 0 100%" }}
+                  className="h-[90px] bg-[#3c3c3d] cursor-pointer"
+                ></div>
+              </div>
+            )}
+
+            {state === "image" && (
+              <div>
+                <MyImages />
+              </div>
+            )}
+            {state === "text" && (
+              <div>
+                <div className="grid grid-cols-1 gap-2">
+                  <div className="bg-[#3c3c3d] cursor-pointer font-bold p-3 text-white text-xl rounded-sm">
+                    <h2>Add a Text</h2>
+                  </div>
+                </div>
+              </div>
+            )}
+            {state === "project" && (
+              <div>
+                <Project />
+              </div>
+            )}
+            {state === "initImage" && (
+              <div className="h-[88vh] overflow-auto  scrollbar-hide">
+                <Image />
+              </div>
+            )}
+            {state === "background" && (
+              <div className="h-[88vh] overflow-auto  scrollbar-hide">
+                <div className="grid grid-cols-2">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(
+                    (img, i) => (
+                      <div
+                        key={i}
+                        className="w-full h-[90px] overflow-hidden rounded-sm cursor-pointer"
+                      >
+                        <img
+                          className="w-full h-full object-fill"
+                          src="http://localhost:5173/DIU_PIC.png"
+                          alt=""
+                        />
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
